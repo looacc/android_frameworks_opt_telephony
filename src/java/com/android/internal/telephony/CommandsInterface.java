@@ -1564,10 +1564,22 @@ public interface CommandsInterface {
     public int getLteOnCdmaMode();
 
     /**
+
      * Return if the current radio is LTE on GSM
      * @hide
      */
     public int getLteOnGsmMode();
+    /**
+     * Get the data call profile information from the modem
+     *
+     * @param appType
+     *          Callback message containing the count and the list of {@link
+     *          RIL_DataCallProfileInfo}
+     *
+     * @param result
+     *          Callback message
+     */
+    public void getDataCallProfile(int appType, Message result);
 
     /**
      * Request the ISIM application on the UICC to perform the AKA
