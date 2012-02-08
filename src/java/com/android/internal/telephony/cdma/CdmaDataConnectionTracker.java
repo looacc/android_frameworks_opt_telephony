@@ -960,6 +960,13 @@ public final class CdmaDataConnectionTracker extends DataConnectionTracker {
         return (mState == DctConstants.State.CONNECTED);
     }
 
+
+    protected void clearTetheredStateOnStatus() {
+        if (DBG) log("clearTetheredStateOnStatus()");
+        if (mActiveApn != null) mActiveApn.mTetheredCallOn = false;
+    }
+
+
     @Override
     protected void log(String s) {
         Log.d(LOG_TAG, "[CdmaDCT] " + s);
