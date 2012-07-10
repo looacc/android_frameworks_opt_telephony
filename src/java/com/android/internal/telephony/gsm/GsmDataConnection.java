@@ -1,5 +1,8 @@
 /*
  * Copyright (C) 2006 The Android Open Source Project
+ * Copyright (c) 2006, 2012, The Linux Foundation. All rights reserved.
+ * Not a Contribution, Apache license notifications and license are retained
+ * for attribution purposes only.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +30,7 @@ import com.android.internal.telephony.PhoneBase;
 import com.android.internal.telephony.PhoneConstants;
 import com.android.internal.telephony.RILConstants;
 import com.android.internal.telephony.RetryManager;
+import com.android.internal.telephony.ApnSetting;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -75,9 +79,9 @@ public class GsmDataConnection extends DataConnection {
     void onConnect(ConnectionParams cp) {
         mApn = cp.apn;
 
-        if (DBG) log("Connecting to carrier: '" + mApn.carrier
+        if (DBG) log("Connecting to carrier: '" + ((ApnSetting)mApn).carrier
                 + "' APN: '" + mApn.apn
-                + "' proxy: '" + mApn.proxy + "' port: '" + mApn.port);
+                + "' proxy: '" + ((ApnSetting)mApn).proxy + "' port: '" + ((ApnSetting)mApn).port);
 
         createTime = -1;
         lastFailTime = -1;
@@ -134,11 +138,11 @@ public class GsmDataConnection extends DataConnection {
             // if Proxy is an IP-address.
             // Otherwise, the default APN will not be restored anymore.
             if (!mApn.types[0].equals(PhoneConstants.APN_TYPE_MMS)
-                || !isIpAddress(mApn.mmsProxy)) {
+                || !isIpAddress(((ApnSetting)mApn).mmsProxy)) {
                 log(String.format(
                         "isDnsOk: return false apn.types[0]=%s APN_TYPE_MMS=%s isIpAddress(%s)=%s",
-                        mApn.types[0], PhoneConstants.APN_TYPE_MMS, mApn.mmsProxy,
-                        isIpAddress(mApn.mmsProxy)));
+                        mApn.types[0], PhoneConstants.APN_TYPE_MMS, ((ApnSetting)mApn).mmsProxy,
+                        isIpAddress(((ApnSetting)mApn).mmsProxy)));
                 return false;
             }
         }

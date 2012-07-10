@@ -1,5 +1,8 @@
 /*
  * Copyright (C) 2006 The Android Open Source Project
+ * Copyright (c) 2006, 2012, The Linux Foundation. All rights reserved.
+ * Not a Contribution, Apache license notifications and license are retained
+ * for attribution purposes only.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +24,7 @@ import android.util.Log;
 
 import com.android.internal.telephony.DataConnection;
 import com.android.internal.telephony.DataConnectionTracker;
+import com.android.internal.telephony.DataProfile;
 import com.android.internal.telephony.Phone;
 import com.android.internal.telephony.PhoneConstants;
 import com.android.internal.telephony.RILConstants;
@@ -74,6 +78,8 @@ public class CdmaDataConnection extends DataConnection {
         createTime = -1;
         lastFailTime = -1;
         lastFailCause = FailCause.NONE;
+
+        // TODO: The data profile's profile ID must be set when it is created.
         int dataProfile;
         if ((cp.apn != null) && (cp.apn.types.length > 0) && (cp.apn.types[0] != null) &&
                 (cp.apn.types[0].equals(PhoneConstants.APN_TYPE_DUN))) {
@@ -83,15 +89,17 @@ public class CdmaDataConnection extends DataConnection {
             dataProfile = RILConstants.DATA_PROFILE_DEFAULT;
         }
 
+        ((DataProfileCdma)mApn).setProfileId(dataProfile);
+
         // msg.obj will be returned in AsyncResult.userObj;
         Message msg = obtainMessage(EVENT_SETUP_DATA_CONNECTION_DONE, cp);
         msg.obj = cp;
         phone.mCM.setupDataCall(
                 Integer.toString(getRilRadioTechnology(RILConstants.SETUP_DATA_TECH_CDMA)),
-                Integer.toString(dataProfile),
-                null, null, null,
-                Integer.toString(RILConstants.SETUP_DATA_AUTH_PAP_CHAP),
-                RILConstants.SETUP_DATA_PROTOCOL_IP, msg);
+                Integer.toString(((DataProfileCdma)mApn).getProfileId()),
+                null, mApn.user, mApn.password,
+                Integer.toString(mApn.getAuthType()),
+                mApn.protocol, msg);
     }
 
     @Override
