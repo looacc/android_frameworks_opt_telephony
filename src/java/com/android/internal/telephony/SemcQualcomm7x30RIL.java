@@ -28,7 +28,7 @@ import android.os.Parcel;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.internal.telephony.IccCardApplicationStatus;
+import com.android.internal.telephony.uicc.IccCardApplicationStatus;
 
 import java.util.ArrayList;
 

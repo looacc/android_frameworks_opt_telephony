@@ -40,6 +40,9 @@ import com.android.internal.telephony.cdma.CdmaInformationRecords;
 import com.android.internal.telephony.cdma.CdmaInformationRecords.CdmaSignalInfoRec;
 import com.android.internal.telephony.cdma.SignalToneUtil;
 
+import com.android.internal.telephony.uicc.IccCardApplicationStatus;
+import com.android.internal.telephony.uicc.IccCardStatus;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;

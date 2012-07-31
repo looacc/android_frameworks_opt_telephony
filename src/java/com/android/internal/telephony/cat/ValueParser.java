@@ -17,10 +17,10 @@
 package com.android.internal.telephony.cat;
 
 import com.android.internal.telephony.GsmAlphabet;
-import com.android.internal.telephony.IccUtils;
 import com.android.internal.telephony.cat.Duration.TimeUnit;
 import com.android.internal.telephony.TelephonyProperties;
 import android.os.SystemProperties;
+import com.android.internal.telephony.uicc.IccUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;

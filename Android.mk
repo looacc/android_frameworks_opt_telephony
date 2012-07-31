@@ -17,13 +17,9 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_AIDL_INCLUDES := $(LOCAL_PATH)/src/java
-LOCAL_SRC_FILES := \
-	src/java/com/android/internal/telephony/ISms.aidl \
-	src/java/com/android/internal/telephony/ISmsMiddleware.aidl \
-    src/java/com/android/internal/telephony/IIccPhoneBook.aidl \
-    src/java/com/android/internal/telephony/EventLogTags.logtags \
-
-LOCAL_SRC_FILES += $(call all-java-files-under, src/java)
+LOCAL_SRC_FILES := $(call all-java-files-under, src/java) \
+	$(call all-Iaidl-files-under, src/java) \
+	$(call all-logtags-files-under, src/java)
 
 ifneq ($(BOARD_RIL_CLASS),)
 LOCAL_SRC_FILES += $(call find-other-java-files,$(BOARD_RIL_CLASS))
