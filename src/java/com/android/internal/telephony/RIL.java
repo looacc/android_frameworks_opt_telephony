@@ -61,11 +61,10 @@ import com.android.internal.telephony.uicc.IccRefreshResponse;
 import com.android.internal.telephony.uicc.IccUtils;
 import com.android.internal.telephony.cdma.CdmaCallWaitingNotification;
 import com.android.internal.telephony.cdma.CdmaInformationRecords;
-<<<<<<< HEAD
-=======
+
 import com.android.internal.telephony.cdma.CdmaSmsBroadcastConfigInfo;
 import com.android.internal.telephony.cdma.DataProfileOmh;
->>>>>>> 2cdfe30... Enable OMH support in Android Telephony
+
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -3588,9 +3587,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
         return response;
     }
 
-<<<<<<< HEAD
-    protected void
-=======
+
     private ArrayList<DataProfile>
     responseGetDataCallProfile(Parcel p) {
         int nProfiles = p.readInt();
@@ -3613,7 +3610,6 @@ public class RIL extends BaseCommands implements CommandsInterface {
     }
 
     private void
->>>>>>> 2cdfe30... Enable OMH support in Android Telephony
     notifyRegistrantsCdmaInfoRec(CdmaInformationRecords infoRec) {
         int response = RIL_UNSOL_CDMA_INFO_REC;
         if (infoRec.record instanceof CdmaInformationRecords.CdmaDisplayInfoRec) {
