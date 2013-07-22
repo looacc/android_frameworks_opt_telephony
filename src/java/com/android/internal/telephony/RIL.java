@@ -62,7 +62,7 @@ import com.android.internal.telephony.uicc.IccUtils;
 import com.android.internal.telephony.cdma.CdmaCallWaitingNotification;
 import com.android.internal.telephony.cdma.CdmaInformationRecords;
 
-import com.android.internal.telephony.cdma.CdmaSmsBroadcastConfigInfo;
+// import com.android.internal.telephony.cdma.CdmaSmsBroadcastConfigInfo;
 import com.android.internal.telephony.cdma.DataProfileOmh;
 
 
@@ -3609,7 +3609,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
         return response;
     }
 
-    private void
+    public void
     notifyRegistrantsCdmaInfoRec(CdmaInformationRecords infoRec) {
         int response = RIL_UNSOL_CDMA_INFO_REC;
         if (infoRec.record instanceof CdmaInformationRecords.CdmaDisplayInfoRec) {
