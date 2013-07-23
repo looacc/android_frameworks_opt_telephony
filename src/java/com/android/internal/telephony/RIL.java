@@ -2341,7 +2341,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
             case RIL_REQUEST_SIGNAL_STRENGTH: ret =  responseSignalStrength(p); break;
             case RIL_REQUEST_VOICE_REGISTRATION_STATE: ret =  responseStrings(p); break;
             case RIL_REQUEST_DATA_REGISTRATION_STATE: ret =  responseStrings(p); break;
-            case RIL_REQUEST_OPERATOR: ret =  responseStrings(p); break;
+            case RIL_REQUEST_OPERATOR: ret =  operatorCheck(p); break;
             case RIL_REQUEST_RADIO_POWER: ret =  responseVoid(p); break;
             case RIL_REQUEST_DTMF: ret =  responseVoid(p); break;
             case RIL_REQUEST_SEND_SMS: ret =  responseSMS(p); break;
@@ -2496,7 +2496,64 @@ public class RIL extends BaseCommands implements CommandsInterface {
 
         rr.release();
     }
-
+// CDMA FIXES, this fixes  bogus values in nv/sim on d2/jf/t0 cdma family or bogus information from sim card
+    private Object
+    operatorCheck(Parcel p) {
+        String response[] = (String[])responseStrings(p);
+        for(int i=0; i<response.length; i++){
+            Log.d("Operator:",response[i]);
+            if (response[i]!= null){
+                    if (response[i].equals("23410")||response[i].equals("26207"))
+                        response[i]="O2";
+                    else if (response[i].equals("310260") || response[i].equals("23430")|| response[i].equals("23203")||response[i].equals("26201"))
+                        response[i]="T-Mobile";
+                    else if (response[i].equals("23201"))
+                        response[i]="A1";
+                    else if (response[i].equals("22210"))
+                        response[i]="Vodafone Italia";
+                    else if (response[i].equals("20810"))
+                        response[i]="SFR";
+                    else if (response[i].equals("20801")||response[i].equals("23205"))
+                        response[i]="Orange";
+                    else if (response[i].equals("24201"))
+                        response[i]="N Telenor";
+                    else if (response[i].equals("24202"))
+                        response[i]="N NetCom";
+                    else if (response[i].equals("24205"))
+                        response[i]="Mobile Norway";
+                    else if (response[i].equals("23433"))
+                        response[i]="EE";
+                    else if (response[i].equals("50212"))
+                        response[i]="Maxis";
+                    else if (response[i].equals("23210"))
+                        response[i]="3";
+                    else if (response[i].equals("26203"))
+                        response[i]="E-Plus";
+                    else if (response[i].equals("24412")||response[i].equals("24403"))
+                        response[i]="DNA";
+                    else if (response[i].equals("24414"))
+                        response[i]="AMT";
+                    else if (response[i].equals("24405"))
+                        response[i]="Elisa";
+                    else if (response[i].equals("24421"))
+                        response[i]="Saunalahti";
+                    else if (response[i].equals("24491"))
+                        response[i]="Sonera";
+                    else if (response[i].equals("26803"))
+                        response[i]="Optimus";
+                    else if (response[i].equals("21910"))
+                        response[i]="VIPnet";
+                    else if (response[i].trim().equals("ctnet"))
+                        response[i]="中国电信";
+                    else if (response[i].trim().equals("China Mobile"))
+                        response[i]="中国移动";
+                    else if (response[i].trim().equals("China Unicom"))
+                        response[i]="中国联通";
+                    Log.d("Operator:",response[i]);
+            }
+        }
+        return response;
+    }
     protected String
     retToString(int req, Object ret) {
         if (ret == null) return "";
